@@ -15,7 +15,7 @@ CREATE TABLE TipoUsuario (
 	);
 
 CREATE TABLE Especialidade (
-	IdEspecialidade INT PRIMARY KEY IDENTITY,
+	IdEspecialidade		INT PRIMARY KEY IDENTITY,
 	TipoEspecialidade	VARCHAR(255) NOT NULL
 	);
 
@@ -26,29 +26,37 @@ CREATE TABLE Situacao (
 
 CREATE TABLE Usuario (
 	IdUsuario		INT PRIMARY KEY IDENTITY,
-	EmailUsuario	VARCHAR(255) NOT NULL UNIQUE,
-	SenhaUsuario	VARCHAR(255) NOT NULL 
+	Email			VARCHAR(255) NOT NULL UNIQUE,
+	Senha			VARCHAR(255) NOT NULL 
 	IdTipoUsuario	INT	FOREIGN KEY REFERENCES TipoUsuario (IdTipoUsuario)
+	);
+
+CREATE TABLE Administrador (
+	IdADM	INT PRIMARY KEY IDENTITY,
+	Email	VARCHAR (255) NOT NULL UNIQUE,
+	Senha	VARCHAR (255) NOT NULL
 	);
 
 CREATE TABLE Paciente (
 	IdPaciente		INT PRIMARY KEY IDENTITY,
-	NomePaciente	VARCHAR (255),
-	CPF				CHAR (11),
-	RG				CHAR (9),
-	Data_Nascimento	DATETIME2,
-	Endereço		VARCHAR (255),
-	Telefone		CHAR (9),
-	EmailPaciente	VARCHAR (255),
+	NomePaciente	VARCHAR (255) NOT NULL,
+	CPF				CHAR (11) NOT NULL UNIQUE,
+	RG				CHAR (9) NOT NULL UNIQUE,
+	Data_Nascimento	DATETIME2 NOT NULL,
+	Endereço		VARCHAR (255) NOT NULL,
+	Telefone		CHAR (9) NOT NULL,
+	Email			VARCHAR (255) NOT NULL UNIQUE,
+	Senha			VARCHAR (255) NOT NULL,
 	IdTipoUsuario	INT FOREIGN KEY REFERENCES TipoUsuario (IdTipoUsuario)
 	);
 
 CREATE TABLE Medico (
-	IdMedico	INT PRIMARY KEY IDENTITY,
-	NomeMedico	VARCHAR (255),
-	EmailMedico VARCHAR (255),
-	CRM			CHAR (6),
-	CNPJ		CHAR (14),
+	IdMedico		INT PRIMARY KEY IDENTITY,
+	NomeMedico		VARCHAR (255) NOT NULL,
+	Email			VARCHAR (255) NOT NULL UNIQUE,
+	Senha			VARCHAR (255) NOT NULL,
+	CRM				CHAR (6) NOT NULL UNIQUE,
+	CNPJ			CHAR (14) NOT NULL UNIQUE,
 	IdEspecialidade INT FOREIGN KEY REFERENCES Especialidade (IdEspecialidade),
 	IdClinica		INT FOREIGN KEY REFERENCES Clinica (IdClinica),
 	IdTipoUsuario	INT FOREIGN KEY REFERENCES TipoUsuario (IdTipoUsuario)
@@ -56,7 +64,7 @@ CREATE TABLE Medico (
 
 CREATE TABLE Consulta (
 	IdConsulta	INT PRIMARY KEY IDENTITY,
-	DataHora	DATETIME2,
+	DataHora	DATETIME2 NOT NULL,
 	IdClinica	INT FOREIGN KEY REFERENCES Clinica(IdClinica),
 	IdMedico	INT FOREIGN KEY REFERENCES Medico(IdMedico),
 	IdPaciente	INT FOREIGN KEY REFERENCES Paciente(IdPaciente),
