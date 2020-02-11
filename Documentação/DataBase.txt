@@ -1,0 +1,11 @@
+Banco de Dados
+
+IMPORTANCIA - O banco de dados é muito importante para a organização dos dados e o fácil acesso entre eles de maneira agil e 
+eficaz.
+
+O que é um banco Relacional : 
+	Um banco de dados relacional é um tipo de banco de dados que armazena e fornece acesso a pontos 
+de dados relacionados entre si. Bancos de dados relacionais são baseados no modelo relacional, uma maneira intuitiva e 
+direta de representar dados em tabelas. Em um banco de dados relacional, cada linha na tabela é um registro com uma ID 
+exclusiva chamada chave. As colunas da tabela contêm atributos dos dados e cada registro geralmente tem um valor para cada atributo,
+ facilitando o estabelecimento das relações entre os pontos de dados.
