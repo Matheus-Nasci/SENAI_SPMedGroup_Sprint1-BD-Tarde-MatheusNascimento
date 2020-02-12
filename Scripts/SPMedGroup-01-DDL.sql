@@ -1,8 +1,8 @@
-CREATE DATABASE SPMedGroup_DDL;
+CREATE DATABASE SPMedGroupDDL;
 
-USE SPMedGroup_DDL;
+USE SPMedGroupDDL;
 
-CREATE TABLE Clinica (
+CREATE TABLE ClinicaMedica (
 	IdClinica	INT PRIMARY KEY IDENTITY,
 	NomeClinica	VARCHAR(255) NOT NULL,
 	Endereco	VARCHAR(255) NOT NULL,
@@ -24,20 +24,19 @@ CREATE TABLE Situacao (
 	TipoSituacao	VARCHAR(255) NOT NULL UNIQUE
 	);
 
-CREATE TABLE Administrador (
-	IdADM	INT PRIMARY KEY IDENTITY,
-	Email	VARCHAR (255) NOT NULL UNIQUE,
-	Senha	VARCHAR (255) NOT NULL,
-	IdTipoUsuario	INT FOREIGN KEY REFERENCES TipoUsuario (IdTipoUsuario)
-	);
-
 CREATE TABLE Endereco (
 	IdEndereco	INT PRIMARY KEY IDENTITY,
 	Rua			VARCHAR (255),
 	Numero		BIGINT,
 	Estado		VARCHAR (255),
 	CEP			CHAR(8),
-	IdPaciente	INT FOREIGN KEY REFERENCES Endereco (IdEndereco)
+	);
+
+CREATE TABLE Administrador (
+	IdADM	INT PRIMARY KEY IDENTITY,
+	Email	VARCHAR (255) NOT NULL UNIQUE,
+	Senha	VARCHAR (255) NOT NULL,
+	IdTipoUsuario	INT FOREIGN KEY REFERENCES TipoUsuario (IdTipoUsuario)
 	);
 
 CREATE TABLE Paciente (
@@ -49,7 +48,8 @@ CREATE TABLE Paciente (
 	Telefone		CHAR (9) NOT NULL,
 	Email			VARCHAR (255) NOT NULL UNIQUE,
 	Senha			VARCHAR (255) NOT NULL,
-	IdTipoUsuario	INT FOREIGN KEY REFERENCES TipoUsuario (IdTipoUsuario)
+	IdTipoUsuario	INT FOREIGN KEY REFERENCES TipoUsuario (IdTipoUsuario),
+	IdEndereco		INT FOREIGN KEY REFERENCES Endereco (IdEndereco)
 	);
 
 CREATE TABLE Medico (
@@ -60,14 +60,14 @@ CREATE TABLE Medico (
 	CRM				CHAR (6) NOT NULL UNIQUE,
 	CNPJ			CHAR (14) NOT NULL UNIQUE,
 	IdEspecialidade INT FOREIGN KEY REFERENCES Especialidade (IdEspecialidade),
-	IdClinica		INT FOREIGN KEY REFERENCES Clinica (IdClinica),
+	IdClinica		INT FOREIGN KEY REFERENCES ClinicaMedica (IdClinica),
 	IdTipoUsuario	INT FOREIGN KEY REFERENCES TipoUsuario (IdTipoUsuario)
 	);
 
 CREATE TABLE Consulta (
 	IdConsulta	INT PRIMARY KEY IDENTITY,
 	DataHora	DATETIME2 NOT NULL,
-	IdClinica	INT FOREIGN KEY REFERENCES Clinica(IdClinica),
+	IdClinica	INT FOREIGN KEY REFERENCES ClinicaMedica(IdClinica),
 	IdMedico	INT FOREIGN KEY REFERENCES Medico(IdMedico),
 	IdPaciente	INT FOREIGN KEY REFERENCES Paciente(IdPaciente),
 	IdSituacao	INT FOREIGN KEY REFERENCES Situacao(IdSituacao)
