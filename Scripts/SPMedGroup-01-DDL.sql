@@ -31,13 +31,21 @@ CREATE TABLE Administrador (
 	IdTipoUsuario	INT FOREIGN KEY REFERENCES TipoUsuario (IdTipoUsuario)
 	);
 
+CREATE TABLE Endereco (
+	IdEndereco	INT PRIMARY KEY IDENTITY,
+	Rua			VARCHAR (255),
+	Numero		BIGINT,
+	Estado		VARCHAR (255),
+	CEP			CHAR(8),
+	IdPaciente	INT FOREIGN KEY REFERENCES Endereco (IdEndereco)
+	);
+
 CREATE TABLE Paciente (
 	IdPaciente		INT PRIMARY KEY IDENTITY,
 	NomePaciente	VARCHAR (255) NOT NULL,
 	CPF				CHAR (11) NOT NULL UNIQUE,
 	RG				CHAR (9) NOT NULL UNIQUE,
 	Data_Nascimento	DATETIME2 NOT NULL,
-	Endereço		VARCHAR (255) NOT NULL,
 	Telefone		CHAR (9) NOT NULL,
 	Email			VARCHAR (255) NOT NULL UNIQUE,
 	Senha			VARCHAR (255) NOT NULL,
@@ -64,4 +72,3 @@ CREATE TABLE Consulta (
 	IdPaciente	INT FOREIGN KEY REFERENCES Paciente(IdPaciente),
 	IdSituacao	INT FOREIGN KEY REFERENCES Situacao(IdSituacao)
 	);
-
